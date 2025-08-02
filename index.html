@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pics-xl Collection</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style type="text/tailwindcss">
+        :root {
+            --primary-color: #6366F1;
+            --primary-light: #818CF8;
+            --secondary-color: #F1F5F9;
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --card-bg: #FFFFFFCC;
+            --border-color: #E2E8F0;
+            --dark-bg: #0F172A;
+            --dark-card: #1E293BCC;
+            --dark-text: #F8FAFC;
+        }
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 100%);
+            color: var(--text-primary);
+            transition: background 0.3s ease;
+        }
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f172a 0%, #312e81 100%);
+            color: var(--dark-text);
+        }
+        .logo-text {
+            font-weight: 800;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--primary-color), #818CF8, #A5B4FC);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.03em;
+        }
+        .logo-subtext {
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+        .dark-mode .logo-subtext {
+            color: #A5B4FC;
+        }
+        .search-input {
+            background: rgba(255,255,255,0.7);
+            border: none;
+            color: var(--text-primary);
+            border-radius: 1.25rem;
+            padding-left: 2.75rem;
+            box-shadow: 0 2px 12px 0 rgba(99,102,241,0.08);
+            transition: box-shadow 0.3s, background 0.3s;
+        }
+        .search-input:focus {
+            box-shadow: 0 0 0 3px #6366F1AA;
+            background: #fff;
+        }
+        .dark-mode .search-input {
+            background: rgba(30,41,59,0.7);
+            color: var(--dark-text);
+        }
+        .search-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+        .dark-mode .search-input::placeholder {
+            color: #A5B4FC;
+        }
+        .filter-button {
+            background: linear-gradient(90deg, #e0e7ff 0%, #f1f5f9 100%);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 1.25rem;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            box-shadow: 0 2px 8px 0 rgba(99,102,241,0.07);
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        .dark-mode .filter-button {
+            background: linear-gradient(90deg, #312e81 0%, #1e293b 100%);
+            color: #A5B4FC;
+        }
+        .filter-button:hover, .filter-button.active {
+            background: linear-gradient(90deg, #6366F1 0%, #818CF8 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px 0 rgba(99,102,241,0.15);
+        }
+        .hamburger-button {
+            color: var(--primary-color);
+            padding: 0.5rem;
+            border-radius: 0.75rem;
+            background: rgba(99,102,241,0.08);
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode .hamburger-button {
+            color: #A5B4FC;
+            background: rgba(49,46,129,0.12);
+        }
+        .hamburger-button:hover {
+            background: #e0e7ff;
+        }
+        .dark-mode .hamburger-button:hover {
+            background: #312e81;
+        }
+        .image-card {
+            background: var(--card-bg);
+            border-radius: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(99,102,241,0.10), 0 1.5px 4px 0 rgba(0,0,0,0.04);
+            overflow: hidden;
+            transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
+            backdrop-filter: blur(8px);
+            border: 1.5px solid #e0e7ff55;
+        }
+        .dark-mode .image-card {
+            background: var(--dark-card);
+            box-shadow: 0 8px 32px 0 rgba(49,46,129,0.18), 0 1.5px 4px 0 rgba(0,0,0,0.10);
+            border: 1.5px solid #312e8155;
+        }
+        .image-card:hover {
+            transform: translateY(-10px) scale(1.025);
+            box-shadow: 0 20px 40px -5px #6366F1AA, 0 10px 20px -5px #818CF855;
+        }
+        .image-placeholder {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .dark-mode .image-placeholder {
+            background: linear-gradient(135deg, #312e81 0%, #1e293b 100%);
+        }
+        .image-placeholder::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 60%, rgba(99,102,241,0.08) 100%);
+            z-index: 1;
+        }
+        .dark-mode .image-placeholder::before {
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(49,46,129,0.18) 100%);
+        }
+        .action-button {
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 1rem;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dark-mode .action-button {
+            color: #A5B4FC;
+        }
+        .action-button:hover {
+            background: #e0e7ff;
+            color: #6366F1;
+        }
+        .dark-mode .action-button:hover {
+            background: #312e81;
+            color: #fff;
+        }
+        .action-button .material-icons {
+            font-size: 1.35rem;
+        }
+        .like-icon.active, .heart-icon.active {
+            color: #F59E42;
+        }
+        .heart-icon {
+            color: #EF4444;
+        }
+        .load-more-button {
+            background: linear-gradient(90deg, #6366F1 0%, #818CF8 100%);
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-radius: 1.5rem;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 24px -1px #6366F1AA;
+            border: none;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+        .load-more-button:hover {
+            background: linear-gradient(90deg, #818CF8 0%, #6366F1 100%);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 10px 30px -3px #6366F1CC;
+        }
+        .admin-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+            color: white;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px 0 #6366F1AA;
+            transition: transform 0.2s, box-shadow 0.3s;
+            z-index: 100;
+            font-size: 2rem;
+        }
+        .admin-button:hover {
+            transform: scale(1.12) rotate(-8deg);
+            box-shadow: 0 16px 40px 0 #6366F1CC;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30, 41, 59, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-content {
+            background: rgba(255,255,255,0.85);
+            border-radius: 2rem;
+            width: 95%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px -5px #6366F1AA, 0 10px 20px -5px #818CF855;
+            backdrop-filter: blur(16px) saturate(1.2);
+            border: 2px solid #e0e7ff88;
+            transform: translateY(30px);
+            transition: transform 0.3s;
+        }
+        .dark-mode .modal-content {
+            background: rgba(30,41,59,0.92);
+            border: 2px solid #312e8188;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .form-input {
+            background: rgba(255,255,255,0.7);
+            border: none;
+            color: var(--text-primary);
+            border-radius: 1.25rem;
+            padding: 0.85rem 1.2rem;
+            width: 100%;
+            font-size: 1rem;
+            box-shadow: 0 1px 6px 0 rgba(99,102,241,0.07);
+            transition: box-shadow 0.3s, background 0.3s;
+        }
+        .form-input:focus {
+            box-shadow: 0 0 0 3px #6366F1AA;
+            background: #fff;
+            outline: none;
+        }
+        .dark-mode .form-input {
+            background: rgba(49,46,129,0.7);
+            color: #A5B4FC;
+        }
+        .tag-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(90deg, #e0e7ff 0%, #f1f5f9 100%);
+            color: var(--primary-color);
+            padding: 0.35rem 1.1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode .tag-badge {
+            background: linear-gradient(90deg, #312e81 0%, #1e293b 100%);
+            color: #A5B4FC;
+        }
+        .tag-badge:hover {
+            background: #c7d2fe;
+        }
+        .dark-mode .tag-badge:hover {
+            background: #6366F1;
+        }
+        .tag-badge.active {
+            background: linear-gradient(90deg, #6366F1 0%, #818CF8 100%);
+            color: #fff;
+        }
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.7);
+            color: var(--primary-color);
+            border: 1.5px solid #e0e7ff;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, border 0.3s;
+            box-shadow: 0 2px 8px 0 rgba(99,102,241,0.07);
+        }
+        .dark-mode .theme-toggle {
+            background: rgba(49,46,129,0.7);
+            border: 1.5px solid #312e81;
+            color: #A5B4FC;
+        }
+        .theme-toggle:hover {
+            background: #e0e7ff;
+        }
+        .dark-mode .theme-toggle:hover {
+            background: #312e81;
+        }
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 0.5rem;
+            background: rgba(255,255,255,0.95);
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 32px 0 #6366F1AA;
+            min-width: 220px;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+        }
+        .dark-mode .dropdown-menu {
+            background: rgba(30,41,59,0.98);
+            box-shadow: 0 8px 32px 0 #312e81AA;
+        }
+        .dropdown-menu.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            padding: 0.85rem 1.2rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 0.75rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dark-mode .dropdown-item {
+            color: #A5B4FC;
+        }
+        .dropdown-item:hover {
+            background: #e0e7ff;
+            color: #6366F1;
+        }
+        .dark-mode .dropdown-item:hover {
+            background: #312e81;
+            color: #fff;
+        }
+        .dropdown-divider {
+            border-top: 1.5px solid #e0e7ff;
+            margin: 0.25rem 0;
+        }
+        .dark-mode .dropdown-divider {
+            border-top-color: #312e81;
+        }
+        .skeleton-loader {
+            background: #e0e7ff;
+            border-radius: 0.75rem;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        .dark-mode .skeleton-loader {
+            background: #312e81;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .download-button {
+            position: absolute;
+            bottom: 1.2rem;
+            right: 1.2rem;
+            background: linear-gradient(90deg, #fff 60%, #e0e7ff 100%);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 1rem;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px #6366F122;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .dark-mode .download-button {
+            background: linear-gradient(90deg, #1e293b 60%, #312e81 100%);
+            color: #A5B4FC;
+        }
+        .image-card:hover .download-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .download-button:hover {
+            background: #fff;
+            color: #6366F1;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 16px #6366F144;
+        }
+        .dark-mode .download-button:hover {
+            background: #1e293b;
+        }
+        header, footer {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px) saturate(1.2);
+            border-radius: 0 0 2rem 2rem;
+            box-shadow: 0 2px 12px 0 #6366F122;
+        }
+        .dark-mode header, .dark-mode footer {
+            background: rgba(30,41,59,0.92);
+            box-shadow: 0 2px 12px 0 #312e8122;
+        }
+        footer {
+            border-radius: 2rem 2rem 0 0;
+        }
+        .toast {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #6366F1 0%, #818CF8 100%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 1.25rem;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 4px 24px #6366F1AA;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s, bottom 0.4s;
+        }
+        .toast.show {
+            opacity: 1;
+            pointer-events: all;
+            bottom: 4.5rem;
+        }
+        .admin-edit-input {
+            background: rgba(255,255,255,0.7);
+            border: none;
+            color: var(--text-primary);
+            border-radius: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+            width: 100%;
+            margin-top: 0.2rem;
+        }
+        .admin-edit-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.2rem;
+        }
+        .admin-edit-btn {
+            background: #6366F1;
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .admin-edit-btn:hover {
+            background: #818CF8;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center">
+    <!-- Admin Floating Button -->
+    <button id="adminButton" class="admin-button">
+        <span class="material-icons">admin_panel_settings</span>
+    </button>
+
+    <!-- Admin Modal -->
+    <div id="adminModal" class="modal-overlay">
+        <div class="modal-content p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Admin Panel</h3>
+                <button id="closeAdminModal" class="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="font-medium mb-3">Upload New Wallpaper</h4>
+                <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center mb-4">
+                    <div class="flex flex-col items-center justify-center">
+                        <span class="material-icons text-4xl mb-2 text-gray-400">cloud_upload</span>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Drag & drop your image here or click to browse</p>
+                    </div>
+                    <input type="file" id="wallpaperUpload" class="hidden" accept="image/*" />
+                    <button id="uploadButton" class="mt-4 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm font-medium">
+                        Select Image
+                    </button>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Title</label>
+                    <input type="text" id="wallpaperTitle" class="form-input" placeholder="Enter wallpaper title">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Tags</label>
+                    <div class="flex flex-wrap mb-2">
+                        <span class="tag-badge active">Minimal</span>
+                        <span class="tag-badge">Abstract</span>
+                        <span class="tag-badge">Nature</span>
+                        <span class="tag-badge">Dark</span>
+                        <span class="tag-badge">Colorful</span>
+                        <span class="tag-badge">Gradient</span>
+                    </div>
+                    <input type="text" id="wallpaperTags" class="form-input" placeholder="Add tags (comma separated)">
+                </div>
+                
+                <button id="submitWallpaper" class="w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-colors">
+                    Upload Wallpaper
+                </button>
+            </div>
+            
+            <div>
+                <h4 class="font-medium mb-3">Manage Wallpapers</h4>
+                <div class="overflow-y-auto max-h-64">
+                    <div class="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium">Abstract Purple</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Minimal, Abstract</p>
+                            </div>
+                        </div>
+                        <button class="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-gray-700 rounded">
+                            <span class="material-icons text-lg">delete</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium">Mountain Sunset</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Nature, Landscape</p>
+                            </div>
+                        </div>
+                        <button class="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-gray-700 rounded">
+                            <span class="material-icons text-lg">delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 border-b border-[var(--border-color)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                <div class="text-center sm:text-left flex items-center">
+                    <span class="logo-text">Pics-xl</span>
+                    <div class="ml-4 relative">
+                        <button id="themeToggle" class="theme-toggle">
+                            <span class="material-icons" id="themeIcon">dark_mode</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-80">
+                        <span class="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--text-secondary)]">search</span>
+                        <input id="searchInput" class="search-input w-full py-2.5 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)]" placeholder="Search wallpapers by tags..." type="text" />
+                    </div>
+                    <div class="hidden md:flex space-x-2">
+                        <button class="filter-button active" data-tag="all">All</button>
+                        <button class="filter-button" data-tag="minimal">Minimal</button>
+                        <button class="filter-button" data-tag="abstract">Abstract</button>
+                        <button class="filter-button" data-tag="nature">Nature</button>
+                    </div>
+                    <div class="relative md:hidden">
+                        <button id="mobileMenuButton" class="hamburger-button p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="material-icons">menu</span>
+                        </button>
+                        <div id="mobileMenu" class="dropdown-menu">
+                            <div class="dropdown-item" data-tag="all">All Wallpapers</div>
+                            <div class="dropdown-item" data-tag="minimal">Minimal</div>
+                            <div class="dropdown-item" data-tag="abstract">Abstract</div>
+                            <div class="dropdown-item" data-tag="nature">Nature</div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">Popular</div>
+                            <div class="dropdown-item">Newest</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mobileFilters" class="md:hidden flex space-x-2 mt-4 overflow-x-auto pb-2 hidden">
+                <button class="filter-button active whitespace-nowrap" data-tag="all">All</button>
+                <button class="filter-button whitespace-nowrap" data-tag="minimal">Minimal</button>
+                <button class="filter-button whitespace-nowrap" data-tag="abstract">Abstract</button>
+                <button class="filter-button whitespace-nowrap" data-tag="nature">Nature</button>
+                <button class="filter-button whitespace-nowrap" data-tag="dark">Dark</button>
+                <button class="filter-button whitespace-nowrap" data-tag="gradient">Gradient</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+        <div id="wallpapersContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <!-- Wallpaper items will be loaded here -->
+        </div>
+        <div class="text-center mt-12">
+            <button class="load-more-button">
+                Load More
+            </button>
+        </div>
+    </main>
+
+    <footer class="w-full text-center py-8 text-sm text-[var(--text-secondary)] border-t border-[var(--border-color)] mt-12 dark:border-gray-800">
+        <p>© 2024 Pics-xl Collection. All rights reserved.</p>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Wallpaper Data Management ---
+            const WALLPAPERS_KEY = 'wallpapers';
+            const PAGE_SIZE = 8;
+            let currentPage = 1;
+
+            // Default wallpapers (used if localStorage is empty)
+            const defaultWallpapers = [
+                {
+                    id: '1',
+                    title: 'Abstract Purple',
+                    tags: ['minimal', 'abstract'],
+                    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCtlxpV_zvBd0G1_9UelaDAFpYNzKW72cOEYtr8ZdAArZHv-eC2BHpoGtoxsbZSaYD1U1nh-wq1g6taRIUG6Tj74QjCcN0Aa-w6e_B4cBTBdoCZF4xaJ6ilCML7r4OMIJAwWcw3cncDi0FL9Xz94CNqB-M3tMDFRUBa1m8Yf1qjkGBFlHPImiBqw74F63XcNtT-xxNBTwtxyuiJEKc_XZtwGHd9hkTwlORocEX-e2n-L-CSQK55bma3Dgyc8ZTOT_g6Il2eWAXf26K8',
+                    resolution: '1920x1080',
+                    likes: 1200,
+                    liked: false,
+                    favorited: false
+                },
+                {
+                    id: '2',
+                    title: 'Mountain Sunset',
+                    tags: ['nature', 'landscape'],
+                    src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                    resolution: '3840x2160',
+                    likes: 3400,
+                    liked: true,
+                    favorited: false
+                },
+                {
+                    id: '3',
+                    title: 'Color Gradient',
+                    tags: ['abstract', 'gradient'],
+                    src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80',
+                    resolution: '2560x1440',
+                    likes: 856,
+                    liked: false,
+                    favorited: true
+                },
+                {
+                    id: '4',
+                    title: 'Dark Minimal',
+                    tags: ['minimal', 'dark'],
+                    src: 'https://images.unsplash.com/photo-1614850523011-8f49ffc73908?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                    resolution: '1920x1080',
+                    likes: 2100,
+                    liked: false,
+                    favorited: false
+                },
+                {
+                    id: '5',
+                    title: 'Forest Path',
+                    tags: ['nature', 'landscape'],
+                    src: 'https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                    resolution: '3840x2160',
+                    likes: 1500,
+                    liked: false,
+                    favorited: false
+                },
+                {
+                    id: '6',
+                    title: 'Blue Waves',
+                    tags: ['abstract', 'gradient'],
+                    src: 'https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80',
+                    resolution: '2560x1440',
+                    likes: 987,
+                    liked: false,
+                    favorited: false
+                },
+                {
+                    id: '7',
+                    title: 'Geometric Shapes',
+                    tags: ['minimal', 'abstract'],
+                    src: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                    resolution: '1920x1080',
+                    likes: 2300,
+                    liked: true,
+                    favorited: false
+                },
+                {
+                    id: '8',
+                    title: 'Ocean Waves',
+                    tags: ['nature', 'water'],
+                    src: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1226&q=80',
+                    resolution: '3840x2160',
+                    likes: 1700,
+                    liked: false,
+                    favorited: true
+                }
+            ];
+
+            function getWallpapers() {
+                const data = localStorage.getItem(WALLPAPERS_KEY);
+                if (data) return JSON.parse(data);
+                localStorage.setItem(WALLPAPERS_KEY, JSON.stringify(defaultWallpapers));
+                return [...defaultWallpapers];
+            }
+            function setWallpapers(wallpapers) {
+                localStorage.setItem(WALLPAPERS_KEY, JSON.stringify(wallpapers));
+            }
+
+            // --- Render Wallpapers ---
+            const wallpapersContainer = document.getElementById('wallpapersContainer');
+            function renderWallpapers(filterTag = 'all', searchTerm = '', page = 1) {
+                const wallpapers = getWallpapers();
+                let filtered = wallpapers.filter(wp => {
+                    const tags = wp.tags.join(',').toLowerCase();
+                    const title = wp.title.toLowerCase();
+                    const matchesFilter = filterTag === 'all' || tags.includes(filterTag);
+                    const matchesSearch = !searchTerm || tags.includes(searchTerm) || title.includes(searchTerm);
+                    return matchesFilter && matchesSearch;
+                });
+                const start = 0;
+                const end = page * PAGE_SIZE;
+                const paged = filtered.slice(start, end);
+                wallpapersContainer.innerHTML = paged.map(wp => wallpaperCardHTML(wp)).join('');
+                attachWallpaperEvents();
+                // Hide or show Load More
+                document.querySelector('.load-more-button').style.display = (filtered.length > end) ? 'inline-block' : 'none';
+            }
+            function wallpaperCardHTML(wp) {
+                return `
+                <div class="image-card flex flex-col" data-id="${wp.id}" data-tags="${wp.tags.join(',')}" data-title="${wp.title}">
+                    <div class="w-full h-72 image-placeholder rounded-t-lg relative">
+                        <img alt="${wp.title}" class="w-full h-full object-cover rounded-t-lg" src="${wp.src}" />
+                        <button class="download-button">
+                            <span class="material-icons text-lg">download</span>
+                            Download
+                        </button>
+                        <button class="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-gray-700 rounded delete-wallpaper-btn" style="position:absolute;top:1rem;right:1rem;z-index:3;">
+                            <span class="material-icons text-lg">delete</span>
+                        </button>
+                    </div>
+                    <div class="p-4 flex items-center justify-between">
+                        <div class="flex items-center space-x-1">
+                            <button class="action-button flex items-center space-x-1 like-btn">
+                                <span class="material-icons like-icon${wp.liked ? ' active' : ''}">${wp.liked ? 'thumb_up' : 'thumb_up_off_alt'}</span>
+                                <span class="text-xs">${wp.likes.toLocaleString()}</span>
+                            </button>
+                            <button class="action-button heart-btn">
+                                <span class="material-icons heart-icon${wp.favorited ? ' active' : ''}">${wp.favorited ? 'favorite' : 'favorite_border'}</span>
+                            </button>
+                        </div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">${wp.resolution}</div>
+                    </div>
+                </div>`;
+            }
+            function attachWallpaperEvents() {
+                // Download
+                wallpapersContainer.querySelectorAll('.download-button').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const img = this.parentElement.querySelector('img');
+                        const imgUrl = img.src;
+                        const imgName = img.alt.replace(/\s+/g, '-').toLowerCase() + '.jpg';
+                        const link = document.createElement('a');
+                        link.href = imgUrl;
+                        link.download = imgName;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<span class="material-icons text-lg">check</span> Downloaded';
+                        this.style.backgroundColor = '#10B981';
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            this.style.backgroundColor = '';
+                        }, 2000);
+                    });
+                });
+                // Like
+                wallpapersContainer.querySelectorAll('.like-btn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const card = this.closest('.image-card');
+                        const id = card.dataset.id;
+                        let wallpapers = getWallpapers();
+                        const idx = wallpapers.findIndex(wp => wp.id === id);
+                        if (idx !== -1) {
+                            wallpapers[idx].liked = !wallpapers[idx].liked;
+                            wallpapers[idx].likes += wallpapers[idx].liked ? 1 : -1;
+                            setWallpapers(wallpapers);
+                            renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+                        }
+                    });
+                });
+                // Favorite
+                wallpapersContainer.querySelectorAll('.heart-btn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const card = this.closest('.image-card');
+                        const id = card.dataset.id;
+                        let wallpapers = getWallpapers();
+                        const idx = wallpapers.findIndex(wp => wp.id === id);
+                        if (idx !== -1) {
+                            wallpapers[idx].favorited = !wallpapers[idx].favorited;
+                            setWallpapers(wallpapers);
+                            renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+                        }
+                    });
+                });
+                // Delete
+                wallpapersContainer.querySelectorAll('.delete-wallpaper-btn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        if (!confirm('Delete this wallpaper?')) return;
+                        const card = this.closest('.image-card');
+                        const id = card.dataset.id;
+                        let wallpapers = getWallpapers();
+                        wallpapers = wallpapers.filter(wp => wp.id !== id);
+                        setWallpapers(wallpapers);
+                        renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+                    });
+                });
+            }
+
+            // --- Upload Wallpaper ---
+            const submitWallpaper = document.getElementById('submitWallpaper');
+            const uploadButton = document.getElementById('uploadButton');
+            const wallpaperUpload = document.getElementById('wallpaperUpload');
+            const wallpaperTitle = document.getElementById('wallpaperTitle');
+            const wallpaperTags = document.getElementById('wallpaperTags');
+
+            // Make 'Select Image' button open the file picker
+            uploadButton.addEventListener('click', function() {
+                wallpaperUpload.click();
+            });
+
+            // --- Toast Notification ---
+            function showToast(msg) {
+                const toast = document.getElementById('toast');
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            }
+
+            // --- Drag & Drop Upload ---
+            const dropArea = uploadButton.parentElement;
+            dropArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropArea.style.background = '#e0e7ff';
+            });
+            dropArea.addEventListener('dragleave', function(e) {
+                dropArea.style.background = '';
+            });
+            dropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropArea.style.background = '';
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    wallpaperUpload.files = e.dataTransfer.files;
+                    wallpaperUpload.dispatchEvent(new Event('change'));
+                }
+            });
+
+            // --- Image Preview (ensure previewImg exists) ---
+            let previewImg = document.getElementById('wallpaperPreview');
+            if (!previewImg) {
+                previewImg = document.createElement('div');
+                previewImg.id = 'wallpaperPreview';
+                previewImg.style.display = 'none';
+                previewImg.style.margin = '0 auto 1rem auto';
+                previewImg.style.maxWidth = '100%';
+                previewImg.style.maxHeight = '180px';
+                previewImg.style.overflow = 'hidden';
+                previewImg.style.borderRadius = '1rem';
+                previewImg.style.boxShadow = '0 2px 12px #6366F122';
+                wallpaperUpload.parentElement.insertBefore(previewImg, uploadButton);
+            }
+            wallpaperUpload.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.innerHTML = `<img src="${e.target.result}" style="width:auto;max-width:100%;max-height:180px;display:block;margin:auto;border-radius:1rem;" />`;
+                        previewImg.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewImg.innerHTML = '';
+                    previewImg.style.display = 'none';
+                }
+            });
+
+            // --- Tag Selection Improvements ---
+            const tagBadges = document.querySelectorAll('.tag-badge');
+            tagBadges.forEach(badge => {
+                badge.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+            // When tags are typed, highlight badges if they match
+            wallpaperTags.addEventListener('input', function() {
+                const inputTags = this.value.split(',').map(t => t.trim().toLowerCase());
+                tagBadges.forEach(badge => {
+                    if (inputTags.includes(badge.textContent.toLowerCase())) {
+                        badge.classList.add('active');
+                    } else if (!inputTags[0]) {
+                        badge.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- Admin Edit Functionality ---
+            function renderAdminWallpapers() {
+                const wallpapers = getWallpapers();
+                adminWallpapersList.innerHTML = wallpapers.map(wp => `
+                    <div class="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700" data-id="${wp.id}">
+                        <div class="flex items-center w-full">
+                            <div class="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded mr-3 overflow-hidden flex items-center justify-center">
+                                <img src="${wp.src}" alt="${wp.title}" class="object-cover w-full h-full" />
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium admin-title">${wp.title}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 admin-tags">${wp.tags.map(t=>t.charAt(0).toUpperCase()+t.slice(1)).join(', ')}</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <button class="p-1 text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 rounded admin-edit-btn" title="Edit"><span class="material-icons text-lg">edit</span></button>
+                            <button class="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-gray-700 rounded admin-delete-btn" title="Delete"><span class="material-icons text-lg">delete</span></button>
+                        </div>
+                    </div>
+                `).join('');
+                // Attach delete events
+                adminWallpapersList.querySelectorAll('.admin-delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        if (!confirm('Delete this wallpaper?')) return;
+                        const card = this.closest('[data-id]');
+                        const id = card.dataset.id;
+                        let wallpapers = getWallpapers();
+                        wallpapers = wallpapers.filter(wp => wp.id !== id);
+                        setWallpapers(wallpapers);
+                        renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+                        renderAdminWallpapers();
+                        showToast('Wallpaper deleted');
+                    });
+                });
+                // Attach edit events
+                adminWallpapersList.querySelectorAll('.admin-edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const card = this.closest('[data-id]');
+                        const id = card.dataset.id;
+                        const titleEl = card.querySelector('.admin-title');
+                        const tagsEl = card.querySelector('.admin-tags');
+                        const wallpapers = getWallpapers();
+                        const wp = wallpapers.find(w => w.id === id);
+                        if (!wp) return;
+                        // Replace with input fields
+                        titleEl.innerHTML = `<input class='admin-edit-input' value="${wp.title.replace(/"/g,'&quot;')}" />`;
+                        tagsEl.innerHTML = `<input class='admin-edit-input' value="${wp.tags.join(', ')}" />`;
+                        // Add save/cancel
+                        if (!card.querySelector('.admin-edit-actions')) {
+                            const actions = document.createElement('div');
+                            actions.className = 'admin-edit-actions';
+                            actions.innerHTML = `<button class='admin-edit-btn'>Save</button><button class='admin-edit-btn' style='background:#e5e7eb;color:#6366F1;'>Cancel</button>`;
+                            tagsEl.parentElement.appendChild(actions);
+                            actions.querySelector('button').onclick = function() {
+                                const newTitle = titleEl.querySelector('input').value.trim();
+                                const newTags = tagsEl.querySelector('input').value.split(',').map(t=>t.trim().toLowerCase()).filter(Boolean);
+                                if (!newTitle || newTags.length === 0) { showToast('Title and tags required'); return; }
+                                wp.title = newTitle;
+                                wp.tags = newTags;
+                                setWallpapers(wallpapers);
+                                renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+                                renderAdminWallpapers();
+                                showToast('Wallpaper updated');
+                            };
+                            actions.querySelectorAll('button')[1].onclick = function() {
+                                renderAdminWallpapers();
+                            };
+                        }
+                    });
+                });
+            }
+
+            adminButton.addEventListener('click', function() {
+                adminModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                renderAdminWallpapers();
+            });
+            closeAdminModal.addEventListener('click', function() {
+                adminModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            adminModal.addEventListener('click', function(e) {
+                if (e.target === adminModal) {
+                    adminModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // --- Upload Wallpaper (with feedback, reset, and live update) ---
+            submitWallpaper.addEventListener('click', function() {
+                if (submitWallpaper.disabled) return;
+                const title = wallpaperTitle.value.trim();
+                const tagsInput = wallpaperTags.value;
+                const file = wallpaperUpload.files[0];
+                if (!file) { alert('Please select an image to upload.'); return; }
+                if (!title) { alert('Please enter a title for the wallpaper.'); return; }
+                // Get selected tags
+                const selectedTags = [];
+                document.querySelectorAll('.tag-badge.active').forEach(badge => {
+                    selectedTags.push(badge.textContent.toLowerCase());
+                });
+                if (tagsInput) {
+                    tagsInput.split(',').forEach(tag => {
+                        if (tag.trim()) selectedTags.push(tag.trim().toLowerCase());
+                    });
+                }
+                if (selectedTags.length === 0) { alert('Please select at least one tag.'); return; }
+                // Read image as data URL
+                submitWallpaper.disabled = true;
+                submitWallpaper.textContent = 'Uploading...';
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const src = e.target.result;
+                    const id = Date.now().toString();
+                    // Try to get image resolution
+                    const img = new window.Image();
+                    img.onload = function() {
+                        const resolution = img.width + 'x' + img.height;
+                        addWallpaper({ id, title, tags: selectedTags, src, resolution, likes: 0, liked: false, favorited: false });
+                        // Reset form and preview
+                        wallpaperTitle.value = '';
+                        wallpaperTags.value = '';
+                        wallpaperUpload.value = '';
+                        document.getElementById('wallpaperPreview').innerHTML = '';
+                        document.getElementById('wallpaperPreview').style.display = 'none';
+                        document.querySelectorAll('.tag-badge').forEach(badge => badge.classList.remove('active'));
+                        document.querySelector('.tag-badge:first-child').classList.add('active');
+                        // Feedback
+                        submitWallpaper.textContent = 'Uploaded!';
+                        setTimeout(() => {
+                            submitWallpaper.textContent = 'Upload Wallpaper';
+                            submitWallpaper.disabled = false;
+                        }, 1200);
+                        renderAdminWallpapers();
+                    };
+                    img.src = src;
+                };
+                reader.readAsDataURL(file);
+            });
+            function addWallpaper(wp) {
+                let wallpapers = getWallpapers();
+                wallpapers.unshift(wp); // Add to start
+                setWallpapers(wallpapers);
+                renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+                renderAdminWallpapers();
+            }
+
+            // --- Load More ---
+            const loadMoreButton = document.querySelector('.load-more-button');
+            loadMoreButton.addEventListener('click', function() {
+                currentPage++;
+                renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+            });
+
+            // --- Filtering ---
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const searchInput = document.getElementById('searchInput');
+            let activeFilter = 'all';
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    activeFilter = this.dataset.tag;
+                    currentPage = 1;
+                    renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+                });
+            });
+            searchInput.addEventListener('input', function() {
+                currentPage = 1;
+                renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+            });
+            // Mobile menu filter
+            const mobileMenuItems = document.querySelectorAll('.dropdown-item[data-tag]');
+            const mobileFilters = document.getElementById('mobileFilters');
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const tag = this.dataset.tag;
+                    activeFilter = tag;
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.dataset.tag === tag) btn.classList.add('active');
+                    });
+                    mobileFilters.classList.remove('hidden');
+                    currentPage = 1;
+                    renderWallpapers(activeFilter, searchInput.value.toLowerCase(), currentPage);
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            // --- Initial Render ---
+            renderWallpapers('all', '', currentPage);
+        });
+    </script>
+</body>
+
+</html>
